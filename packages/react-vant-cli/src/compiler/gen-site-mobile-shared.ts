@@ -1,8 +1,13 @@
 import { join } from 'path';
 import fse from 'fs-extra';
-import slash from 'slash2';
 import { SITE_MOBILE_SHARED_FILE, SRC_DIR } from '../common/constant.js';
-import { decamelize, getVantConfig, pascalize, smartOutputFile } from '../common/index.js';
+import {
+  decamelize,
+  getVantConfig,
+  normalizePath,
+  pascalize,
+  smartOutputFile,
+} from '../common/index.js';
 
 const { existsSync, readdirSync } = fse;
 
@@ -15,7 +20,7 @@ type DemoItem = {
 function genImports(demos: DemoItem[]) {
   const vantConfig = getVantConfig();
   return demos
-    .map((item) => `import ${item.name} from '${slash(join(vantConfig.name, item.path))}';`)
+    .map((item) => `import ${item.name} from '${normalizePath(join(vantConfig.name, item.path))}';`)
     .join('\n');
 }
 
@@ -53,7 +58,7 @@ function genCode(components: string[]) {
     .map((component) => ({
       component,
       name: pascalize(component),
-      path: slash(join(component, 'demo/index.tsx')),
+      path: join(component, 'demo/index.tsx'),
     }))
     .filter((item) => existsSync(join(SRC_DIR, item.path)));
 

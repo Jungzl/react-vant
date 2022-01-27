@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import { ora } from '../common/logger.js';
 import { SCRIPT_EXTS } from '../common/constant.js';
 

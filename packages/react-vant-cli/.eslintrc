@@ -1,5 +1,6 @@
 {
-  "ignorePatterns": ["/.*"],
+  "root": true,
+  "extends": ["@react-vant"],
   "rules": {
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,

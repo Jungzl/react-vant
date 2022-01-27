@@ -1,52 +1,30 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
-let parserOptions: {
-  tsconfigRootDir?: string;
-  project?: string;
-  createDefaultProgram?: boolean;
-} = {
-  project: './tsconfig.json',
-};
-
-if (!fs.existsSync(path.join(process.env.PWD || '.', './tsconfig.json'))) {
-  parserOptions = {
-    tsconfigRootDir: __dirname,
-    project: './tsconfig.json',
-    /**
-     * parserOptions.createDefaultProgram
-     * Default .false
-     * This option allows you to request that when the setting is specified,
-     * files will be allowed when not included in the projects defined by the provided files.
-     * Using this option will incur significant performance costs.
-     * This option is primarily included for backwards-compatibility.
-     * See the project section above for more information.projecttsconfig.json
-     */
-    createDefaultProgram: true,
-  };
-}
-
 module.exports = {
-  root: true,
   extends: [
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
-    'prettier',
-    'prettier/react',
-    'prettier/@typescript-eslint',
+    'eslint:recommended',
+    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
+
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2019,
+    sourceType: 'module',
+    project: './tsconfig.json',
+  },
+
   plugins: ['@typescript-eslint'],
+
   env: {
     browser: true,
     node: true,
     es6: true,
-    mocha: true,
     jest: true,
-    jasmine: true,
   },
-  // ignorePatterns: ['/.*'],
+
   rules: {
     'react/jsx-wrap-multilines': 0,
     'react/prop-types': 0,
@@ -57,14 +35,7 @@ module.exports = {
     'function-paren-newline': 0,
     'import/no-named-as-default-member': 0,
     'import/no-named-as-default': 0,
-    'import/no-unresolved': [
-      2,
-      {
-        ignore: ['^@/', '^@@/', '^@alipay/bigfish/'],
-        caseSensitive: true,
-        commonjs: true,
-      },
-    ],
+    'import/no-unresolved': 0,
     'import/order': 'warn',
     'react/jsx-props-no-spreading': 0,
     'react/state-in-constructor': 0,
@@ -131,5 +102,13 @@ module.exports = {
     'space-before-function-paren': 0,
     'import/extensions': 0,
   },
-  parserOptions,
+
+  overrides: [
+    {
+      files: ['**/*.md/*.js', '**/*.md/*.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+  ],
 };

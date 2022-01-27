@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import gulp from 'gulp';
 import postcss from 'gulp-postcss';
 import postcssMultiple from 'postcss-px-multiple';
@@ -173,9 +173,7 @@ async function build2xResouces() {
       base: HD_2X_DIR,
     })
     .pipe(postcss([pxMultiplePlugin]))
-    .pipe(gulp.dest(HD_2X_DIR), {
-      overwrite: true,
-    });
+    .pipe(gulp.dest(HD_2X_DIR, { overwrite: true }));
 }
 
 const tasks = [

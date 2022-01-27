@@ -1,5 +1,7 @@
-const fabric = require('@react-vant/fabric');
-
 module.exports = {
-  ...fabric.prettier,
+  singleQuote: true,
+  trailingComma: 'all',
+  printWidth: 100,
+  proseWrap: 'never',
+  endOfLine: 'lf',
 };

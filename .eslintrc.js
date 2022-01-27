@@ -1,5 +1,6 @@
 module.exports = {
-  extends: [require.resolve('@react-vant/fabric/dist/eslint')],
+  root: true,
+  extends: ['@react-vant'],
   ignorePatterns: ['/.*'],
   rules: {
     '@typescript-eslint/ban-types': 'off',
@@ -14,5 +15,9 @@ module.exports = {
     'react/default-props-match-prop-types': 'off',
     'react/require-default-props': 'off',
     'react-hooks/exhaustive-deps': 'warn', // Checks deps of Hooks
+    // 下面是新加的
+    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    'react/jsx-no-constructed-context-values': 'off',
+    'react/display-name': 'off',
   },
 };

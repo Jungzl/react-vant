@@ -1,6 +1,6 @@
-import execa from 'execa';
-import { consola } from './logger.js';
+import { execa } from 'execa';
 import { execSync } from 'child_process';
+import { consola } from './logger.js';
 import { getVantConfig } from './constant.js';
 
 let hasYarnCache: boolean;

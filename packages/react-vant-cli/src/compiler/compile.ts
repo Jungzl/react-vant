@@ -7,7 +7,7 @@ import through2 from 'through2';
 import signale from 'signale';
 import chalk from 'chalk';
 import lodash from 'lodash-es';
-import slash from 'slash2';
+import slash from 'slash';
 import gulpIf from 'gulp-if';
 import chokidar from 'chokidar';
 import gulpPlumber from 'gulp-plumber';
@@ -62,7 +62,7 @@ export default async function Compile(options: ICompileOpts) {
       .pipe(gulpIf((f) => isTsFile(f.path), gulpTs(tsConfig)))
       .pipe(
         gulpIf(
-          (f) => /\.less$/.test(f.path),
+          (f: { path: string }) => /\.less$/.test(f.path),
           through2.obj(async (file, env, cb) => {
             cb(null, file);
             const source = await compileLess(file.path);
@@ -73,9 +73,11 @@ export default async function Compile(options: ICompileOpts) {
       )
       .pipe(
         gulpIf(
-          (f) => isTransform(f.path),
+          (f: { path: string }) => isTransform(f.path),
           through2.obj((file, env, cb) => {
             try {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               file.contents = Buffer.from(compileJs({ file, type }));
               // .jsx -> .js
               // file.path = file.path.replace(extname(file.path), '.js');
@@ -90,11 +92,13 @@ export default async function Compile(options: ICompileOpts) {
       )
       .pipe(
         gulpIf(
-          (f) => isComponent(slash(f.path)),
+          (f: { path: string }) => isComponent(slash(f.path)),
           through2.obj((file, env, cb) => {
             cb(null, file);
             const paths = slash(file.path).split('/');
             const target = paths[paths.length - 2];
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             genComponentStyle(target);
           }),
         ),
@@ -119,9 +123,11 @@ export default async function Compile(options: ICompileOpts) {
           ignoreInitial: true,
         });
 
-        const files = [];
+        const files: (string | string[])[] = [];
         const compileFiles = () => {
           while (files.length) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             createStream(files.pop());
           }
         };

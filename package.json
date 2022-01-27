@@ -6,34 +6,23 @@
     "build:site": "pnpm build:site --dir ./packages/react-vant",
     "release:site": "pnpm release:site --dir ./packages/react-vant",
     "changelog": "lerna exec --scope react-vant yarn changelog",
-    "dev": "pnpm dev --dir ./packages/react-vant"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "react-vant-cli commit-lint"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,less}": "prettier --write",
-    "*.{ts,tsx,js}": "eslint --fix",
-    "*.{css,less}": "stylelint --fix",
-    "package.json": "yarn sort-package-json"
+    "dev": "pnpm dev --dir ./packages/react-vant",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@react-vant/cli": "workspace:*"
   },
   "devDependencies": {
-    "@react-vant/fabric": "workspace:*",
+    "@react-vant/eslint-config": "workspace:*",
+    "@react-vant/stylelint-config": "workspace:*",
     "all-contributors-cli": "^6.20.0",
-    "eslint": "7.32.0",
-    "husky": "4.3.8",
-    "lint-staged": "12.0.2",
-    "prettier": "2.4.1",
-    "pretty-quick": "3.1.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "sort-package-json": "1.53.1",
-    "stylelint": "13.13.1"
+    "eslint": "^8.7.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.1",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sort-package-json": "^1.53.1",
+    "stylelint": "^14.3.0"
   }
 }
